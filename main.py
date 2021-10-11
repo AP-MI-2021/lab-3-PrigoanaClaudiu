@@ -1,4 +1,5 @@
-# 10 si 13
+# probleme 10, 13 si 6
+
 def cit_list():
     l=[]
     n=int(input("Dati numarul de elemente:"))
@@ -78,6 +79,28 @@ def test_get_longest_prime_digits(l):
     assert get_longest_prime_digits([6,2,3,8,9,10,11,13,17]) == [11,13,17]
 
 
+#prob 6
+def get_longest_div_k(l,k):
+    subsecmax=[]
+    for i in range(len(l)):
+        for j in range(i,len(l)):
+            if nr_div_cu_k(l[i:j+1],k) and len(subsecmax) < len(l[i:j+1]):
+                subsecmax=l[i:j+1]
+    return subsecmax
+
+
+def nr_div_cu_k(l,k:int):
+    for a in l:
+        if a % k != 0:
+            return False
+    return True
+
+
+def test_get_longest_div_k(l,k):
+    assert get_longest_div_k([5,20,10,8,9],5) == [5,20,10]
+    assert get_longest_div_k([5,15,2,6,4,9],2) == [2,6,4]
+    assert get_longest_div_k([3,2,5,6,9,10],3) == [6,9]
+
 def main():
     l=[]
     test_get_longest_all_even(l)
@@ -86,9 +109,10 @@ def main():
         print("1. Citire date.")
         print("2. Determinare cea mai lungă subsecvență cu proprietatea ca numerele sa fie pare.")
         print("3. Determinare cea mai lungă subsecvență cu proprietatea ca numerele sa fie formate din cifre prime.")
-        print("4. Iesire.")
+        print("4. Determinare cea mai lunga subsecventa cu proprietatea ca numerele sa fie divizibile cu k.")
+        print("5. Iesire.")
         optiune=input("Dati optiunea: ")
-        if optiune == "4":
+        if optiune == "5":
             break
         elif optiune == "1":
             l=cit_list()
@@ -96,6 +120,10 @@ def main():
             print(get_longest_all_even(l))
         elif optiune == "3":
             print(get_longest_prime_digits(l))
+        elif optiune == "4":
+            k=int(input("Dati numarul k:"))
+            print(get_longest_div_k(l,k))
+            test_get_longest_div_k(l, k)
         else:
             print("!!!Optiunea nu este buna!!!")
 
